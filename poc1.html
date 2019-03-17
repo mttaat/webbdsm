@@ -39,11 +39,13 @@ function regListen() {
         try {
             device = await navigator.usb.requestDevice({ filters: [{
                 // corsair mouse vendor/product
-                vendorId: 0x1b1c, // bruteforce note: 16^4 = 65536 combos for 
-                productId: 0x1b2e // vendorid or productid
+//                vendorId: 0x1b1c // bruteforce note: 16^4 = 65536 combos for 
+//                productId: 0x1b2e // vendorid or productid
                 // yubikey - nothing shows under linux
-//                vendorId: 0x1050,
 //                productId: 0x0403
+//                vendorId: 0x1050
+                // usb disk
+                vendorId: 0x13fe
             }]});
         } catch(err) {
             console.log(err)
