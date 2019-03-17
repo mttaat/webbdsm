@@ -7,7 +7,7 @@ var pagetitle="WEBUSB POC001"
 function init() {
     console.log(pagetitle + " >> INIT()");
     regListen()
-//    scan()    
+    scan()    
 }
 
 // attempt one
@@ -15,9 +15,9 @@ function regListen() {
     console.log(pagetitle + " >> REGLISTEN()");
 
 
-    document.addEventListener('click', async() => {
-        console.log('click -> rescan')
-//    document.addEventListener('DOMContentLoaded', async() => {
+//    document.addEventListener('click', async() => {
+//        console.log('click -> rescan')
+    document.addEventListener('DOMContentLoaded', async() => {
         let devices = await navigator.usb.getDevices();
         devices.forEach(device => { console.log(pagetitle + " >> DEVICE FOUND: " + device) });
     });
@@ -32,14 +32,19 @@ function regListen() {
         console.log(event.device);
     });
 
-/*
+
 
     document.addEventListener('click', async() => {
         console.log("click")
         try {
             device = await navigator.usb.requestDevice({ filters: [{
-                vendorId: 0x4176,
-                productId: 0x1027 }]});
+                // corsair mouse vendor/product
+                vendorId: 0x1b1c, // bruteforce note: 16^4 = 65536 combos for 
+                productId: 0x1b2e // vendorid or productid
+                // yubikey - nothing shows under linux
+//                vendorId: 0x1050,
+//                productId: 0x0403
+            }]});
         } catch(err) {
             console.log(err)
         }
@@ -48,7 +53,7 @@ function regListen() {
             console.log(device);
         }
     });
-*/
+
 
 }
 
