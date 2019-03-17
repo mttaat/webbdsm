@@ -1,0 +1,79 @@
+<html>
+<head>
+<title>webusb poc 001</title>
+</head>
+<script>
+var pagetitle="WEBUSB POC001"
+function init() {
+    console.log(pagetitle + " >> INIT()");
+    regListen()
+//    scan()    
+}
+
+// attempt one
+function regListen() {
+    console.log(pagetitle + " >> REGLISTEN()");
+
+
+    document.addEventListener('click', async() => {
+        console.log('click -> rescan')
+//    document.addEventListener('DOMContentLoaded', async() => {
+        let devices = await navigator.usb.getDevices();
+        devices.forEach(device => { console.log(pagetitle + " >> DEVICE FOUND: " + device) });
+    });
+
+    navigator.usb.addEventListener('connect', event => {
+        console.log("connect event")
+        console.log(event.device);
+    });
+
+    navigator.usb.addEventListener('disconnect', event => {
+        console.log("disconnect event")
+        console.log(event.device);
+    });
+
+/*
+
+    document.addEventListener('click', async() => {
+        console.log("click")
+        try {
+            device = await navigator.usb.requestDevice({ filters: [{
+                vendorId: 0x4176,
+                productId: 0x1027 }]});
+        } catch(err) {
+            console.log(err)
+        }
+
+        if (device !== undefined) {
+            console.log(device);
+        }
+    });
+*/
+
+}
+
+// atempt two
+function scan() {
+    console.log(pagetitle + " >> SCAN()");
+    navigator.usb.getDevices().then(devices => {
+        devices.forEach(device => console.log(pagetitle + " >> DEVICE FOUND: " + device))
+    });
+}
+
+// can we specifically request a device which has not been enumerated? 
+// ie: known devices
+// or bruteforcing
+
+function reqDevs() {
+    console.log(pagetitle + " >> REQDEV()");
+    
+}
+
+</script>
+
+
+<body onload="init()">
+<h1>webusb poc001</h1>
+
+
+</body>
